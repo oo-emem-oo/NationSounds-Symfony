@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title programmation.artiste %}
+
+{% block body %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+
+                </div>
+                <div class="col-md-4">
+                    <h1>{{ programmation.artiste }}</h1>
+                    <p>{{ programmation.description }}</p>
+                    <a href="#" class="btn btn-primary">Contacter les programmateurs</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-d-8">
+                <h2>Détails</h2>
+                <table class="table table-striped">
+                    <tr>
+                        <td>Adresse de la scène</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Jour de passage</td>
+                        <td>{{ programmation.jourType }}</td>
+                    </tr>
+                    <tr>
+                        <td>Heure de passage</td>
+                        <td class="text-primary" style="font-weight: bolder; font-size: 2rem;">{{ programmation.heure | date('H')}} h {{ programmation.heure | date('i') }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
