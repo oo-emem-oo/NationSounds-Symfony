@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Concerts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,9 +21,17 @@ class ConcertsRepository extends ServiceEntityRepository
     }
 
     /**
-    //  * @return Concerts[] Returns an array of Concerts objects
-    //  */
-    public function findLatest(): array{
+    * @return Query
+    */
+    public function findAllQuery(): Query {
+        return $this->createQueryBuilder('c')
+            ->getQuery();
+    }
+
+    /**
+    * @return Concerts[] Returns an array of Concerts objects
+    */
+    public function findLatest(): array {
         return $this->createQueryBuilder('c')
             ->setMaxResults(10)
             ->getQuery()

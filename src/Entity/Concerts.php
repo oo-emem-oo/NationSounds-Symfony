@@ -47,6 +47,12 @@ class Concerts
      */
     private $heure;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Scene::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $scene;
+
     public function __construct() { /* ajout */
         $this->heure = new \DateTime();
     }
@@ -113,4 +119,16 @@ class Concerts
     /* public function getFormattedHours(): string {
         return date($this->heure, date('H'), 'h', date('i'));
     } */
+
+    public function getScene(): ?Scene
+    {
+        return $this->scene;
+    }
+
+    public function setScene(Scene $scene): self
+    {
+        $this->scene = $scene;
+
+        return $this;
+    }
 }

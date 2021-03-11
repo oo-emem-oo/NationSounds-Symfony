@@ -4,9 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Concerts;
 use App\Repository\ConcertsRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class ProgrammationController extends AbstractController {
 
@@ -20,10 +25,38 @@ class ProgrammationController extends AbstractController {
     }
 
     /**
-     * @Route("/programmes", name="programmation.index")
+     * @Route("/publicconcerts", methods={"GET"})
+     * @param Request $request
      * @return Response
      */
-    public function index(): Response {
+    public function publicConcerts (Request $request) : Response {
+        $response = new Response();
+        $concerts = $this->repository->findAll();
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+
+        $serializer = new Serializer($normalizers, $encoders);
+        //var_dump($concerts);
+        $jsonContent = [];
+        foreach($concerts as $concert) {
+            $tempJson = $serializer->serialize($concert, 'json');
+          array_push($jsonContent, $tempJson);
+        }
+            //= $serializer->serialize($concerts, 'json');
+        $response->setContent(json_encode([
+            'data' => $jsonContent,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/programmes", name="programmation.index")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
+     */
+    public function index(PaginatorInterface $paginator, Request $request): Response {
 
         /* $repository = $this->getDoctrine()->getRepository(Concerts::class);
         dump($repository); */
@@ -40,9 +73,13 @@ class ProgrammationController extends AbstractController {
 
         /* $programmation = $this->repository->findAll();
         dump($programmation); */
-
+        $programmations = $paginator->paginate($this->repository->findAllQuery(),
+            $request->query->getInt('page', 1),
+            3
+        );
         return $this->render('programmation/index.html.twig', [
-            'current_menu' => 'programmations'
+            'current_menu' => 'programmations',
+            'programmations' => $programmations
         ]);
     }
 
