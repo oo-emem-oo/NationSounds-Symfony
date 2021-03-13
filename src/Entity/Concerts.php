@@ -55,7 +55,6 @@ class Concerts
     /**
      * @ORM\OneToOne(targetEntity=Scene::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
-     * @MaxDepth(2)
      **/
     private ?Scene $scene;
 
