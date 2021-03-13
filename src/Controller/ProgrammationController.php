@@ -4,39 +4,58 @@ namespace App\Controller;
 
 use App\Entity\Concerts;
 use App\Repository\ConcertsRepository;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations\Get;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Validator\Constraints\Json;
 
-class ProgrammationController extends AbstractController {
+class ProgrammationController extends AbstractController { // extends ou implement = heritage /ça va herité des fonctions et des propriétés de cette class
 
     /**
      * @var ConcertsRepository
      */
-    private ConcertsRepository $repository;
+    private ConcertsRepository $repository; //ConcertsRepository = class = définition d'un objet / $repository = propriété ou variable /
 
     public function __construct(ConcertsRepository $repository) {
         $this->repository = $repository;
     }
 
     /**
-     * @Route("/publicconcerts", methods={"GET"})
-     * @param Request $request
-     * @return Response
+     *
+     * @Get(path = "/publicconcerts")
+     * @Rest\View()
+     *
      */
-    public function publicConcerts (Request $request) : Response {
-        $response = new Response();
-        $concerts = $this->repository->findAll();
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
+    public function publicConcerts () {
+        //$response = new Response();
+        $concerts = $this->repository->findLatest();
+       /* foreach($concerts as $concert) {
+            $concert->setScene($concert->getScene());
+        }*/
+        //var_dump($concerts);
+        return $concerts;
+        //$encoders = [new JsonEncoder()];
+        //var_dump($concerts);
+        /*$defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getName();
+            },
+        ];
+        $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext); */
+
+
+        /*$normalizers = [new ObjectNormalizer()];
 
         $serializer = new Serializer($normalizers, $encoders);
-        //var_dump($concerts);
+
         $jsonContent = [];
         foreach($concerts as $concert) {
             $tempJson = $serializer->serialize($concert, 'json');
@@ -47,7 +66,7 @@ class ProgrammationController extends AbstractController {
             'data' => $jsonContent,
         ]));
         $response->headers->set('Content-Type', 'application/json');
-        return $response;
+        return $response; */
     }
 
     /**

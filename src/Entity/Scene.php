@@ -33,7 +33,10 @@ class Scene
     private $longitude;
 
     /**
-     * @ORM\OneToOne(targetEntity=Concerts::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Concerts::class)
+     */
+    /*
+     * * @ORM\OneToOne(targetEntity=Concerts::class, cascade={"persist", "remove"})
      */
     private $concert;
 

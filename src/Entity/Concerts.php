@@ -5,13 +5,18 @@ namespace App\Entity;
 use App\Repository\ConcertsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use PhpParser\Node\Stmt\For_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ConcertsRepository::class)
  * @UniqueEntity("artiste")
  */
+
+
+
 class Concerts
 {
     const JOUR =  [
@@ -50,8 +55,9 @@ class Concerts
     /**
      * @ORM\OneToOne(targetEntity=Scene::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
-     */
-    private $scene;
+     * @MaxDepth(2)
+     **/
+    private ?Scene $scene;
 
     public function __construct() { /* ajout */
         $this->heure = new \DateTime();
