@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class ProgrammationController extends AbstractController {
 
@@ -19,6 +22,32 @@ class ProgrammationController extends AbstractController {
 
     public function __construct(ConcertsRepository $repository) {
         $this->repository = $repository;
+    }
+
+    /**
+     * @Route("/publicconcerts", methods={"GET"})
+     * @param Request $request
+     * @return Response
+     */
+    public function publicConcerts (Request $request) : Response {
+        $response = new Response();
+        $concerts = $this->repository->findAll();
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+
+        $serializer = new Serializer($normalizers, $encoders);
+        //var_dump($concerts);
+        $jsonContent = [];
+        foreach($concerts as $concert) {
+            $tempJson = $serializer->serialize($concert, 'json');
+          array_push($jsonContent, $tempJson);
+        }
+            //= $serializer->serialize($concerts, 'json');
+        $response->setContent(json_encode([
+            'data' => $jsonContent,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210227172258 extends AbstractMigration
+final class Version20210314140702 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,12 +20,14 @@ final class Version20210227172258 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE concerts (id INT AUTO_INCREMENT NOT NULL, artiste VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, jour VARCHAR(255) NOT NULL, heure TIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE property (id INT AUTO_INCREMENT NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE concerts ADD filename VARCHAR(255) NOT NULL, CHANGE scene_id scene_id INT NOT NULL');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE concerts');
+        $this->addSql('DROP TABLE property');
+        $this->addSql('ALTER TABLE concerts DROP filename, CHANGE scene_id scene_id INT DEFAULT NULL');
     }
 }
