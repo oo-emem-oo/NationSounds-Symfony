@@ -1,0 +1,12 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{{ path('programmation.show', { slug: programmation.slug, id: programmation.id }) }}">
+                {{ programmation.artiste }}
+            </a>
+        </h5>
+        <p class="card-text">{{ programmation.description | nl2br }}</p>
+        <p class="card-text" style="font-size: 1.2rem;">{{ programmation.jourType }}</p>
+        <div class="text-primary" style="font-weight: bolder; font-size: 2rem;">{{ programmation.heure | date('H')}} h {{ programmation.heure | date('i') }}</div>
+    </div>
+</div>

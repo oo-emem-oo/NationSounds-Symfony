@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Concerts;
 use App\Repository\ConcertsRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,9 +23,11 @@ class ProgrammationController extends AbstractController {
 
     /**
      * @Route("/programmes", name="programmation.index")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function index(): Response {
+    public function index(PaginatorInterface $paginator, Request $request): Response {
 
         /* $repository = $this->getDoctrine()->getRepository(Concerts::class);
         dump($repository); */
@@ -40,9 +44,13 @@ class ProgrammationController extends AbstractController {
 
         /* $programmation = $this->repository->findAll();
         dump($programmation); */
-
+        $programmations = $paginator->paginate($this->repository->findAllQuery(),
+            $request->query->getInt('page', 1),
+            3
+        );
         return $this->render('programmation/index.html.twig', [
-            'current_menu' => 'programmations'
+            'current_menu' => 'programmations',
+            'programmations' => $programmations
         ]);
     }
 
