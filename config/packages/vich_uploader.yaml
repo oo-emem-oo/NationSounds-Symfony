@@ -1,0 +1,15 @@
+vich_uploader:
+    db_driver: orm
+
+
+    mappings:
+        #Définition du mapping du fichier
+        concerts_image :
+            #Définition de l'URI
+            uri_prefix: /images/concerts
+            #Définition du mapping des uploads
+            upload_destination: '%kernel.project_dir%/public/images/concerts'
+            #Mise en place du namer pour chaque image sous forme d'ID
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+

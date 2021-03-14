@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Nation Sounds' %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1>Nation Sounds</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consectetur scelerisque congue. Sed tristique bibendum aliquam. Vestibulum interdum orci odio, ut elementum nibh rutrum et. Proin non laoreet sem. Nulla tincidunt purus vitae neque fermentum congue. Duis nibh nulla, aliquam at ligula et, pharetra ultricies nibh. Nam ut gravida ligula, nec accumsan justo. Quisque purus libero, pretium quis vestibulum et, lacinia eget enim. Aliquam dignissim eget diam placerat interdum. Donec scelerisque ac turpis ut tincidunt. Sed sit amet fringilla libero, ac bibendum ante. Suspendisse vitae mi sit amet purus sodales hendrerit id a turpis. Mauris varius lectus vel nulla pulvinar rutrum. Suspendisse potenti. </p>
+    </div>
+
+    <div class="container mt-4">
+        <h2>Les dernières programmations</h2>
+        <div class="row flex mt-4">
+            {% for programmation in programmations %}
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('programmation.show', {id: programmation.id, slug: programmation.slug}) }}">{{ programmation.artiste }}</a>
+                            </h5>
+                            {# <p class="card-text">{{ programmation.description }}</p> #}
+                            <p class="card-text" style="font-size: 1.2rem;">{{ programmation.jourType }}</p>
+                            <div class="text-primary" style="font-weight: bolder; font-size: 2rem;">{{ programmation.heure | date('H')}} h {{ programmation.heure | date('i') }}</div>
+                            {# <div class="text-primary">{{ programmation.formattedHours }}</div> #}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

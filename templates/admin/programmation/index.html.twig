@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Gérer la programmation' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Gérer la programmation</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for programmation in programmations %}
+                <tr>
+                    <td>{{ programmation.artiste }}</td>
+                    <td>
+                        <a href="{{ path('admin.programmation.edit', {id: programmation.id}) }}" class="btn btn-secondary" style="color: #ffffff;">Editer</a>
+                        <form method="post" action="{{ path('admin.programmation.delete', {id: programmation.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloirs supprimer cette programmation ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ programmation.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-right">
+            <a class="btn btn-primary" href="{{ path('admin.programmation.new') }}">Créer une nouvelle programmation</a>
+        </div>
+    </div>
+
+{% endblock %}

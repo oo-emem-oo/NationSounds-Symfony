@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Toutes la programmation' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Voir toutes la programmation</h1>
+        <div class="row">
+            {% for programmation in programmations %}
+                <div class="col-md-4">
+                    {% include 'programmation/_programation.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            {{ knp_pagination_render(programmations) }}
+        </div>
+    </div>
+{% endblock %}

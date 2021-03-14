@@ -1,0 +1,16 @@
+<div class="card mb-4">
+    {% if concerts.filename %} <!-- Mise en place d'une condition pour afficher l'image si celle-ci est présente -->
+        <img src="{{ vich_uploader_asset(concerts, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top"  style="width: 100%; height: auto;"> <!-- Récupération du chemin et définition du style -->
+    {% else %}
+    <img src="{{ '/images/concerts/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top"  style="width: 100%; height: auto;"> <!-- Pour afficher une image par défaut sur les autre images -->
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{{ path('programmation.show', { slug: programmation.slug, id: programmation.id }) }}">
+                {{ programmation.artiste }}
+            </a>
+        </h5>
+        <p class="card-text">{{ programmation.description | nl2br }}</p>
+        <p class="card-text" style="font-size: 1.2rem;">{{ programmation.jourType }}</p>
+        <div class="text-primary" style="font-weight: bolder; font-size: 2rem;">{{ programmation.heure | date('H')}} h {{ programmation.heure | date('i') }}</div>
+    </div>
+</div>
