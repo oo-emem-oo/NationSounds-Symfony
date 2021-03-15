@@ -153,6 +153,7 @@ class Concerts
         return $this;
     }
 
+
     /**
      * @return string|null
      */
@@ -191,8 +192,4 @@ class Concerts
         }
         return $this;
     }
-
-
-
-
 }
