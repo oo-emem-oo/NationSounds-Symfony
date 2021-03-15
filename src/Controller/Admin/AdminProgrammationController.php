@@ -69,7 +69,7 @@ class AdminProgrammationController extends AbstractController {
         $form = $this->createForm(ProgrammationType::class, $programmation);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
             $this->addFlash('success', 'Bien modifié avec succès');
             return $this->redirectToRoute('admin.programmation.index');
