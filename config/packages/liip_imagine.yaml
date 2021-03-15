@@ -1,0 +1,16 @@
+liip_imagine:  #Nom du package
+        filter_sets: #Nouveau filtre
+            thumb: #Nom du filtre
+                quality: 75 #qualité de l'image
+                filters:
+                    thumbails: #Génération d'une miniature
+                        size: [360, 230] #Définition taille de l'image
+                        mode: outbound #Mode de redimentionnement
+
+            medium: #Nom du filtre
+                quality: 75 #qualité de l'image
+                filters:
+                    thumbails: #Génération d'une miniature
+                        size: [ 800, 530 ] #Définition taille de l'image
+                        mode: outbound #Mode de redimentionnement
+        driver: "gd"
