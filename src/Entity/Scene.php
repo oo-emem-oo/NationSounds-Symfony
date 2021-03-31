@@ -40,6 +40,11 @@ class Scene
      */
     private $concert;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="scenes")
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +94,18 @@ class Scene
     public function setConcert(?Concerts $concert): self
     {
         $this->concert = $concert;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

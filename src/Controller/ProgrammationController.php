@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Concerts;
 use App\Repository\ConcertsRepository;
+use App\Repository\SceneRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Knp\Component\Pager\PaginatorInterface;
@@ -23,9 +24,11 @@ class ProgrammationController extends AbstractController { // extends ou impleme
      * @var ConcertsRepository
      */
     private ConcertsRepository $repository; //ConcertsRepository = class = définition d'un objet / $repository = propriété ou variable /
+    private SceneRepository $sceneRepository;
 
-    public function __construct(ConcertsRepository $repository) {
+    public function __construct(ConcertsRepository $repository,  SceneRepository $sceneRepository) {
         $this->repository = $repository;
+        $this->sceneRepository = $sceneRepository;
     }
 
     /**
@@ -67,6 +70,17 @@ class ProgrammationController extends AbstractController { // extends ou impleme
         ]));
         $response->headers->set('Content-Type', 'application/json');
         return $response; */
+    }
+
+    /**
+     *
+     * @Get(path = "/publicscenes")
+     * @Rest\View()
+     *
+     */
+    public function publicScenes () {
+        $scenes = $this->sceneRepository->findAll();
+        return $scenes;
     }
 
     /**

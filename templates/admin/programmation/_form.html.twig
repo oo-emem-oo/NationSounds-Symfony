@@ -1,8 +1,9 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="col-md-4">{{ form_row(form.artiste) }}</div>
-    <div class="col-md-4">{{ form_row(form.jour) }}</div>
-    <div class="col-md-4">{{ form_row(form.heure) }}</div>
+    <div class="col-md-3">{{ form_row(form.artiste) }}</div>
+    <div class="col-md-3">{{ form_row(form.jour) }}</div>
+    <div class="col-md-2">{{ form_row(form.heure) }}</div>
+    <div class="col-md-3">{{ form_row(form.imageFile) }}</div>
 </div>
 <div class="row">
     <div class="col-md-12">{{ form_row(form.description) }}</div>

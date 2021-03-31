@@ -7,7 +7,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-
+                    {% if programmation.filename %}
+                        <img class="card-img-top" src="{{ vich_uploader_asset(programmation, 'imageFile') | imagine_filter('medium') }}" style="object-fit: cover; object-position: top; width: 100%; height: auto;"/>
+                    {% else %}
+                        <img class="card-img-top" src="{{ '/images/programmations/empty.jpg' | imagine_filter('medium') }}" style="object-fit: cover; object-position: top; width: 100%; height: auto;"/>
+                    {% endif %}
                 </div>
                 <div class="col-md-4">
                     <h1>{{ programmation.artiste }}</h1>

@@ -1,4 +1,9 @@
 <div class="card mb-4">
+    {% if programmation.filename %}
+    <img class="card-img-top" src="{{ vich_uploader_asset(programmation, 'imageFile') | imagine_filter('thumb') }}" style="object-fit: cover; object-position: top; width: 100%; height: auto;"/>
+        {% else %}
+            <img class="card-img-top" src="{{ '/images/programmations/empty.jpg' | imagine_filter('thumb') }}" style="object-fit: cover; object-position: top; width: 100%; height: auto;"/>
+    {% endif %}
     <div class="card-body">
         <h5 class="card-title">
             <a href="{{ path('programmation.show', { slug: programmation.slug, id: programmation.id }) }}">

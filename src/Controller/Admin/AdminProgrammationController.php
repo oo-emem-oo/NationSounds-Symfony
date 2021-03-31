@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Concerts;
+use App\Entity\Scene;
 use App\Form\ProgrammationType;
 use App\Repository\ConcertsRepository;
 use Doctrine\ORM\EntityManagerInterface;

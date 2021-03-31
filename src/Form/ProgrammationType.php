@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Concerts;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,6 +22,9 @@ class ProgrammationType extends AbstractType
             ])
             ->add('heure', null, [
                 'label' => 'Heure de passage'
+            ])
+            ->add('imageFile', FileType::class, [
+                'required' => false
             ])
         ;
     }
